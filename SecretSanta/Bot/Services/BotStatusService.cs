@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Bot.Services;
 
-internal class BotStatusService(DiscordShardedClient client, ILogger<BotStatusService> logger) : DiscordShardedClientService(client, logger)
+internal class BotStatusService(DiscordSocketClient client, ILogger<BotStatusService> logger) : DiscordClientService(client, logger)
 {
   protected override async Task ExecuteAsync(CancellationToken stoppingToken)
   {

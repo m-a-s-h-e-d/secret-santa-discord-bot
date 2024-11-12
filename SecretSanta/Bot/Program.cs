@@ -62,7 +62,7 @@ public class Program
         GatewayIntents = GatewayIntents.All
       };
 
-      config.Token = builder.Configuration["Token"]!;
+      config.Token = builder.Configuration["Client:Token"]!;
 
       config.LogFormat = (message, exception) => $"{message.Source}: {message.Message}";
     });
