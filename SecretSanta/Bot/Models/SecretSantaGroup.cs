@@ -1,12 +1,22 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Bot.Models;
+﻿namespace Bot.Models;
 
 internal class SecretSantaGroup
 {
   private readonly List<ulong> _participants = [];
   private readonly List<ulong> _joinOrder = [];
-  private ulong? _firstParticipant = null;
+  private readonly Dictionary<ulong, ulong> _recipientMap = new();
+  private decimal _budget = 0;
+  public decimal Budget
+  {
+    get => _budget;
+    set
+    {
+      if (value >= 0)
+      {
+        _budget = value;
+      }
+    }
+  }
 
   /// <summary>
   /// Shuffles the participants list in-place with the Fisher-Yates shuffle algorithm
@@ -21,8 +31,15 @@ internal class SecretSantaGroup
 
       (_participants[rnd], _participants[i]) = (_participants[i], _participants[rnd]);
     }
+  }
 
-    _firstParticipant = _participants.Count > 0 ? _participants[0] : null;
+  public void Assign()
+  {
+    for (var i = 0; i < _participants.Count; i++)
+    {
+      var currentSecretSanta = _participants[i];
+      _recipientMap[currentSecretSanta] = _participants[(i + 1) % _participants.Count];
+    }
   }
 
   public bool Join(ulong userId)
@@ -40,6 +57,7 @@ internal class SecretSantaGroup
     _participants.Remove(userId);
     return true;
   }
+  public bool ValidSize() => _participants.Count >= 2;
 
   public List<ulong> List()
   {
@@ -49,5 +67,14 @@ internal class SecretSantaGroup
   public List<ulong> Participants()
   {
     return _participants;
+  }
+
+  public ulong? GetRecipient(ulong secretSantaId)
+  {
+    if (!_recipientMap.TryGetValue(secretSantaId, out var recipient))
+    {
+      return null;
+    }
+    return recipient;
   }
 }
