@@ -1,4 +1,4 @@
-﻿using Bot.Models;
+﻿using Bot.Core.Models;
 using Discord;
 using Discord.Interactions;
 
