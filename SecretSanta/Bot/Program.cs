@@ -6,6 +6,7 @@ using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Schema;
 using Serilog;
 using Serilog.Events;
 
@@ -27,7 +28,7 @@ public class Program
 
       await host.RunAsync();
     }
-    catch (Exception ex)
+    catch (Exception ex) when (ex is not HostAbortedException && ex.Source != "Microsoft.EntityFrameworkCore.Design")
     {
       Log.Fatal(ex, "Host terminated unexpectedly");
     }
@@ -81,5 +82,8 @@ public class Program
 
     builder.Services.AddHostedService<InteractionHandler>();
     builder.Services.AddHostedService<BotStatusService>();
+    builder.Services.AddDbContext<AppDbContext>(ServiceLifetime.Transient);
+    builder.Services.AddSingleton<Groups>();
+    builder.Services.AddSingleton<Preferences>();
   }
 }

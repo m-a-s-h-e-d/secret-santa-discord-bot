@@ -1,13 +1,14 @@
 ﻿using Bot.Core.Models;
 using Discord;
 using Discord.Interactions;
+using Schema;
 
 namespace Bot.Modules;
 
-public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
+public class InteractionModule(AppDbContext dbContext, Groups groups, Preferences giftPreferences) : InteractionModuleBase<SocketInteractionContext>
 {
-  private static readonly Dictionary<ulong, SecretSantaGroup> Groups = new();
-  private static readonly Dictionary<ulong, string[]> GiftPreferences = new();
+  private static Dictionary<ulong, SecretSantaGroup> _groups = new();
+  private static Dictionary<ulong, string[]> _giftPreferences = new();
 
   [SlashCommand("join", "Join the server's secret santa list")]
   public async Task Join()
@@ -17,6 +18,7 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
 
     if (group.Join(userId))
     {
+      await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
       await RespondAsync("Added you to the server's secret santa list.", ephemeral: true);
     }
     else
@@ -33,6 +35,7 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
 
     if (group.Leave(userId))
     {
+      await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
       await RespondAsync("Removed you to the server's secret santa list.", ephemeral: true);
     }
     else
@@ -56,6 +59,7 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
     {
       await RespondAsync("Shuffling participants...");
       group.Shuffle();
+      await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
       group.Assign();
       foreach (var secretSantaId in participants)
       {
@@ -65,7 +69,7 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
 
         await secretSanta.SendMessageAsync(
           $"You are the secret santa of `{recipient.GlobalName ?? recipient.Username}` (User ID: {recipientId})" +
-          $"\nTheir gift preferences are: {string.Join(", ", GiftPreferences[recipientId])}" +
+          $"\nTheir gift preferences are: {string.Join(", ", _giftPreferences[recipientId])}" +
           $"\nThe budget for this secret santa is ${group.Budget}");
       }
       await FollowupAsync("Sent direct messages to all secret santas with their gift recipients.");
@@ -88,7 +92,7 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
 
       await Context.User.SendMessageAsync(
         $"You are the secret santa of `{recipient.GlobalName ?? recipient.Username}` (User ID: {recipientId})" + 
-        $"\nTheir gift preferences are: {string.Join(", ", GiftPreferences[(ulong)recipientId])}" +
+        $"\nTheir gift preferences are: {string.Join(", ", _giftPreferences[(ulong)recipientId])}" +
         $"\nThe budget for this secret santa is ${group.Budget}");
       await RespondAsync("Sent you a direct message with your gift recipient.", ephemeral: true);
     }
@@ -106,6 +110,7 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
     else
     {
       group.Budget = budget;
+      await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
       await RespondAsync($"The server's gift budget has been set to ${group.Budget}");
     }
   }
@@ -144,7 +149,8 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
         preferences[2] = thirdChoice;
       }
 
-      await RespondAsync($"Updated your preferences: {string.Join(", ", GiftPreferences[userId])}");
+      await giftPreferences.SavePreference(userId, preferences);
+      await RespondAsync($"Updated your preferences: {string.Join(", ", _giftPreferences[userId])}");
     }
   }
 
@@ -179,37 +185,48 @@ public class InteractionModule : InteractionModuleBase<SocketInteractionContext>
     }
   }
 
-  private static string[] GetPreferences(ulong userId)
+  private string[] GetPreferences(ulong userId)
   {
     string[] preferences;
 
+    if (_giftPreferences.Count <= 0)
+    {
+      _giftPreferences = dbContext.Preferences.ToDictionary(c => c.Id, c => c.Preferences);
+    }
+
     try
     {
-      preferences = GiftPreferences[userId];
+      preferences = _giftPreferences[userId];
     }
     catch (KeyNotFoundException ex)
     {
-      GiftPreferences[userId] = ["", "", ""];
-      preferences = GiftPreferences[userId];
+      _giftPreferences[userId] = ["", "", ""];
+      preferences = _giftPreferences[userId];
     }
 
     return preferences;
   }
 
-  private static SecretSantaGroup GetGroup(ulong guildId)
+  private SecretSantaGroup GetGroup(ulong guildId)
   {
     SecretSantaGroup group;
 
+    if (_groups.Count <= 0)
+    {
+      _groups = dbContext.Groups.ToDictionary(c => c.Id,
+        c => new SecretSantaGroup(c.Budget, c.Participants, c.JoinOrder));
+    }
+
     try
     {
-      group = Groups[guildId];
+      group = _groups[guildId];
     }
     catch (KeyNotFoundException ex)
     {
-      Groups[guildId] = new SecretSantaGroup();
-      group = Groups[guildId];
+      _groups[guildId] = new SecretSantaGroup();
+      group = _groups[guildId];
     }
 
-    return group; 
+    return group;
   }
 }

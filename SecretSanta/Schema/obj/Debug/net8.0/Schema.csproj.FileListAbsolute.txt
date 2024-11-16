@@ -1,0 +1,15 @@
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\bin\Debug\net8.0\Schema.deps.json
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\bin\Debug\net8.0\Schema.runtimeconfig.json
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\bin\Debug\net8.0\Schema.dll
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\bin\Debug\net8.0\Schema.pdb
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.csproj.AssemblyReference.cache
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.AssemblyInfoInputs.cache
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.AssemblyInfo.cs
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.csproj.CoreCompileInputs.cache
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.sourcelink.json
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.dll
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\refint\Schema.dll
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.pdb
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\Schema.genruntimeconfig.cache
+C:\Users\Mashed\Documents\Repositories\secret-santa-discord-bot\SecretSanta\Schema\obj\Debug\net8.0\ref\Schema.dll

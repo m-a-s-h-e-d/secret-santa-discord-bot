@@ -1,21 +1,23 @@
 ﻿namespace Bot.Core.Models;
 
-internal class SecretSantaGroup
+public class SecretSantaGroup
 {
+    private decimal _budget = 0;
     private readonly List<ulong> _participants = [];
     private readonly List<ulong> _joinOrder = [];
     private readonly Dictionary<ulong, ulong> _recipientMap = new();
-    private decimal _budget = 0;
-    public decimal Budget
+
+    public SecretSantaGroup()
     {
-        get => _budget;
-        set
-        {
-            if (value >= 0)
-            {
-                _budget = value;
-            }
-        }
+
+    }
+
+    public SecretSantaGroup(decimal budget, List<ulong> participants, List<ulong> joinOrder)
+    {
+      _budget = budget;
+      _participants = participants;
+      _joinOrder = joinOrder;
+      Assign();
     }
 
     /// <summary>
@@ -58,6 +60,18 @@ internal class SecretSantaGroup
         return true;
     }
     public bool ValidSize() => _participants.Count >= 2;
+
+    public decimal Budget
+    {
+      get => _budget;
+      set
+      {
+        if (value >= 0)
+        {
+          _budget = value;
+        }
+      }
+    }
 
     public List<ulong> List()
     {

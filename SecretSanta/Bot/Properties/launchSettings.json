@@ -5,6 +5,11 @@
     },
     "Container (Dockerfile)": {
       "commandName": "Docker"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "c:\\windows\\system32\\runas.exe",
+      "commandLineArgs": "/savecred /user:Mashed Bot.exe"
     }
   }
 }
