@@ -12,9 +12,11 @@ public class AppDbContext : DbContext
 
   public AppDbContext()
   {
-    const string path = "Database/";
-    DbPath = Path.Join(path, "secretsanta.db");
-    Console.WriteLine(DbPath);
+    // The environment variable paths probably don't work on Docker containers
+    // const Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData; 
+    // var DbPath = Path.GetFullPath(Environment.GetFolderPath(folder));
+    // DbPath = Path.Join(path, "secretsanta.db");
+    DbPath = "secretsanta.db";
   }
 
   // The following configures EF to create a Sqlite database file in the

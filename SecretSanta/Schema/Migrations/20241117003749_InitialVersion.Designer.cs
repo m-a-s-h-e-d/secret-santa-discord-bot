@@ -10,8 +10,8 @@ using Schema;
 namespace Schema.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241115113519_InitialVersions")]
-    partial class InitialVersions
+    [Migration("20241117003749_InitialVersion")]
+    partial class InitialVersion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

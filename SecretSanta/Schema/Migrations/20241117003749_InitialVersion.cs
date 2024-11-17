@@ -5,7 +5,7 @@
 namespace Schema.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialVersions : Migration
+    public partial class InitialVersion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

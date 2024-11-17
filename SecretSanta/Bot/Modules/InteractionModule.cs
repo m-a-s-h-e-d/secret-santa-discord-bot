@@ -1,4 +1,5 @@
 ﻿using Bot.Core.Models;
+using Bot.Utils;
 using Discord;
 using Discord.Interactions;
 using Schema;
@@ -48,7 +49,8 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
   [SlashCommand("assign", "Shuffle and assign secret santas to gift recipients, should only be used once")]
   public async Task Assign()
   {
-    var group = GetGroup(Context.Guild.Id);
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
     var participants = group.Participants();
 
     if (!group.ValidSize())
@@ -68,9 +70,10 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
         var recipient = Context.Client.GetUser(recipientId);
 
         await secretSanta.SendMessageAsync(
-          $"You are the secret santa of `{recipient.GlobalName ?? recipient.Username}` (User ID: {recipientId})" +
-          $"\nTheir gift preferences are: {string.Join(", ", _giftPreferences[recipientId])}" +
-          $"\nThe budget for this secret santa is ${group.Budget}");
+          embed: ResponseHandler.NotifySecretSantaEmbed(
+            guild, recipient, group.Budget, GetPreferences(recipientId)
+          )
+        );
       }
       await FollowupAsync("Sent direct messages to all secret santas with their gift recipients.");
     }
@@ -79,7 +82,8 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
   [SlashCommand("remind-me", "Remind the command issuer their gift recipient in a direct message")]
   public async Task RemindMe()
   {
-    var group = GetGroup(Context.Guild.Id);
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
     var recipientId = group.GetRecipient(Context.User.Id);
     
     if (recipientId == null)
@@ -91,9 +95,10 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
       var recipient = Context.Client.GetUser((ulong)recipientId);
 
       await Context.User.SendMessageAsync(
-        $"You are the secret santa of `{recipient.GlobalName ?? recipient.Username}` (User ID: {recipientId})" + 
-        $"\nTheir gift preferences are: {string.Join(", ", _giftPreferences[(ulong)recipientId])}" +
-        $"\nThe budget for this secret santa is ${group.Budget}");
+        embed: ResponseHandler.NotifySecretSantaEmbed(
+          guild, recipient, group.Budget, GetPreferences((ulong)recipientId)
+        )
+      );
       await RespondAsync("Sent you a direct message with your gift recipient.", ephemeral: true);
     }
   }
@@ -111,7 +116,7 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     {
       group.Budget = budget;
       await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
-      await RespondAsync($"The server's gift budget has been set to ${group.Budget}");
+      await RespondAsync($"The server's gift budget has been set to ${group.Budget:#.##}");
     }
   }
 
@@ -120,37 +125,45 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
   {
     var group = GetGroup(Context.Guild.Id);
 
-    await RespondAsync($"The server's gift budget is ${group.Budget}");
+    await RespondAsync($"The server's gift budget is ${group.Budget:#.##}");
   }
 
-  [SlashCommand("set-preferences", "Set your global gift preferences, shared between all servers")]
-  public async Task SetPreferences(string? firstChoice = null, string? secondChoice = null, string? thirdChoice = null)
+  [SlashCommand("set-preferences", "Set your global gift preferences, shared between all servers (Links OK)")]
+  public async Task SetPreferences(
+    [Summary("First", "Your top preference for gifts, input CLEAR to clear this preference")]
+    string? firstChoice = null,
+    [Summary("Second", "Your second top preference for gifts, input CLEAR to clear this preference")]
+    string? secondChoice = null,
+    [Summary("Third", "Your third top preference for gifts, input CLEAR to clear this preference")]
+    string? thirdChoice = null)
   {
     var userId = Context.User.Id;
-
+    var preferences = GetPreferences(userId);
+    var newPreferences = new List<string>();
     if (firstChoice == null && secondChoice == null && thirdChoice == null)
     {
       await RespondAsync("No preferences were entered.", ephemeral: true);
     }
     else
     {
-      var preferences = GetPreferences(userId);
+      var i = 0;
+      foreach (var choice in new List<string?> { firstChoice, secondChoice, thirdChoice })
+      {
+        switch (choice)
+        {
+          case null:
+            newPreferences.Add(preferences[i++]);
+            break;
+          case "CLEAR":
+            break;
+          default:
+            newPreferences.Add(choice);
+            break;
+        }
+      }
 
-      if (firstChoice != null)
-      {
-        preferences[0] = firstChoice;
-      }
-      if (secondChoice != null)
-      {
-        preferences[1] = secondChoice;
-      }
-      if (thirdChoice != null)
-      {
-        preferences[2] = thirdChoice;
-      }
-
-      await giftPreferences.SavePreference(userId, preferences);
-      await RespondAsync($"Updated your preferences: {string.Join(", ", _giftPreferences[userId])}");
+      await giftPreferences.SavePreference(userId, newPreferences.ToArray());
+      await RespondAsync(embed: ResponseHandler.PreferencesList(Context.User, newPreferences));
     }
   }
 
@@ -165,7 +178,11 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     }
     else
     {
-      await RespondAsync($"Participants: [{string.Join(", ", group.List().ToArray())}]");
+      await RespondAsync(
+        embed: ResponseHandler.ParticipantList(
+          Context.Client, Context.Guild, "Participant List (By Join Order)", group.List()
+        )
+      );
     }
   }
 
@@ -181,7 +198,13 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     }
     else
     {
-      await RespondAsync($"Current group list: [{string.Join(", ", group.Participants().ToArray())}]", ephemeral: true);
+
+      await RespondAsync(
+        embed: ResponseHandler.ParticipantList(
+          Context.Client, Context.Guild, "Participant List (In Shuffled Order)", group.Participants()
+        ),
+        ephemeral: true
+      );
     }
   }
 
