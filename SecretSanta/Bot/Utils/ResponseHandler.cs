@@ -1,11 +1,41 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using Schema;
 
 namespace Bot.Utils;
 
 public static class ResponseHandler
 {
   private const ushort DefaultImageSize = 64;
+
+  public static Embed? SimpleGuildMessageEmbed(SocketGuild guild, string title, string message)
+  {
+    var embed = new EmbedBuilder
+    {
+      Title = title,
+      ThumbnailUrl = guild.IconUrl
+    };
+
+    embed.WithDescription(message)
+      .WithCurrentTimestamp();
+
+    return embed.Build();
+  }
+
+  public static Embed? SimpleUserMessageEmbed(SocketUser recipient, string title, string message)
+  {
+    var image = recipient.GetDisplayAvatarUrl(ImageFormat.Png, DefaultImageSize);
+    var embed = new EmbedBuilder
+    {
+      Title = title,
+      ThumbnailUrl = image
+    };
+
+    embed.WithDescription(message)
+      .WithCurrentTimestamp();
+
+    return embed.Build();
+  }
 
   public static Embed? NotifySecretSantaEmbed(SocketGuild guild,
     SocketUser recipient, decimal budget, string[] preferences)
@@ -27,23 +57,24 @@ public static class ResponseHandler
     return embed.Build();
   }
 
-  public static Embed? PreferencesList(SocketUser recipient, IEnumerable<string> preferences)
+  public static Embed? PreferencesListEmbed(SocketUser recipient, IEnumerable<string> preferences)
   {
     var image = recipient.GetDisplayAvatarUrl(ImageFormat.Png, DefaultImageSize);
     var embed = new EmbedBuilder
     {
-      Title = $"Updated Your Preferences",
+      Title = $"Preferences List for {recipient.GlobalName ?? recipient.Username}",
       ThumbnailUrl = image
     };
 
     embed.AddPreferences(preferences);
 
-    embed.WithCurrentTimestamp();
+    embed.WithDescription("Updated your preferences.")
+      .WithCurrentTimestamp();
 
     return embed.Build();
   }
 
-  public static Embed? ParticipantList(DiscordSocketClient client, SocketGuild guild, string title,
+  public static Embed? ParticipantListEmbed(DiscordSocketClient client, SocketGuild guild, string title,
     List<ulong> participants)
   {
     var embed = new EmbedBuilder

@@ -54,8 +54,7 @@
               "RelativeToolTip": "Schema\\Preferences.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T01:46:15.235Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-17T01:46:15.235Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "Bot\\Services\\InteractionHandler.cs",
               "ViewState": "AgIAADMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T00:50:55.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-17T00:50:55.728Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "Bot\\.gitignore",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAOAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
-              "WhenOpened": "2024-11-17T00:38:42.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-17T00:38:42.42Z"
             },
             {
               "$type": "Document",
@@ -93,8 +90,7 @@
               "RelativeToolTip": "Schema\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:48:56.817Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:48:56.817Z"
             },
             {
               "$type": "Document",
@@ -106,8 +102,7 @@
               "RelativeToolTip": "Bot\\Program.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAAAB8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:08:56.978Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:08:56.978Z"
             },
             {
               "$type": "Document",
@@ -119,8 +114,7 @@
               "RelativeToolTip": "Bot\\Core\\Models\\SecretSantaGroup.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAowBkAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:05:15.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:05:15.507Z"
             },
             {
               "$type": "Document",
@@ -130,7 +124,7 @@
               "RelativeDocumentMoniker": "Bot\\Modules\\InteractionModule.cs",
               "ToolTip": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Modules\\InteractionModule.cs",
               "RelativeToolTip": "Bot\\Modules\\InteractionModule.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAqwF0AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-15T10:27:02.74Z",
               "EditorCaption": ""
@@ -149,7 +143,7 @@
               "RelativeDocumentMoniker": "Bot\\Utils\\ResponseHandler.cs",
               "ToolTip": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Utils\\ResponseHandler.cs",
               "RelativeToolTip": "Bot\\Utils\\ResponseHandler.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAEAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwAEAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-17T00:53:25.927Z",
               "EditorCaption": ""

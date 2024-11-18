@@ -14,34 +14,58 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
   [SlashCommand("join", "Join the server's secret santa list")]
   public async Task Join()
   {
-    var group = GetGroup(Context.Guild.Id);
-    var userId = Context.User.Id;
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
+    var user = Context.User;
+    var userId = user.Id;
 
     if (group.Join(userId))
     {
       await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
-      await RespondAsync("Added you to the server's secret santa list.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Secret Santa for [{guild.Name}]", "Added you to the server's secret santa list."
+        ),
+        ephemeral: true
+      );
     }
     else
     {
-      await RespondAsync("You are already in the server's secret santa list.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Secret Santa for [{guild.Name}]", "You are already in the server's secret santa list."
+        ),
+        ephemeral: true
+      );
     }
   }
 
   [SlashCommand("leave", "Leave the server's secret santa list")]
   public async Task Leave()
   {
-    var group = GetGroup(Context.Guild.Id);
-    var userId = Context.User.Id;
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
+    var user = Context.User;
+    var userId = user.Id;
 
     if (group.Leave(userId))
     {
       await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
-      await RespondAsync("Removed you to the server's secret santa list.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Secret Santa for [{guild.Name}]", "Removed you to the server's secret santa list."
+        ),
+        ephemeral: true
+      );
     }
     else
     {
-      await RespondAsync("You are not in the server's secret santa list.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Secret Santa for [{guild.Name}]", "You are not in the server's secret santa list."
+        ),
+        ephemeral: true
+      );
     }
   }
 
@@ -55,11 +79,15 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
 
     if (!group.ValidSize())
     {
-      await RespondAsync("Not enough participants to start.");
+      await FollowupAsync(
+        embed: ResponseHandler.SimpleGuildMessageEmbed(
+          guild, $"Secret Santa for [{guild.Name}]", "Not enough participants to start."
+        )
+      );
     }
     else
     {
-      await RespondAsync("Shuffling participants...");
+      await DeferAsync();
       group.Shuffle();
       await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
       group.Assign();
@@ -75,20 +103,30 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
           )
         );
       }
-      await FollowupAsync("Sent direct messages to all secret santas with their gift recipients.");
+      await FollowupAsync(
+        embed: ResponseHandler.SimpleGuildMessageEmbed(
+          guild, $"Secret Santa for [{guild.Name}]", "Sent direct messages to all secret santas with their gift recipients."
+        )
+      );
     }
   }
 
   [SlashCommand("remind-me", "Remind the command issuer their gift recipient in a direct message")]
   public async Task RemindMe()
   {
+    var user = Context.User;
     var guild = Context.Guild;
     var group = GetGroup(guild.Id);
     var recipientId = group.GetRecipient(Context.User.Id);
     
     if (recipientId == null)
     {
-      await RespondAsync("You have not been assigned a recipient yet.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Secret Santa for [{guild.Name}]", "You have not been assigned a recipient yet."
+        ),
+        ephemeral: true
+      );
     }
     else
     {
@@ -99,33 +137,53 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
           guild, recipient, group.Budget, GetPreferences((ulong)recipientId)
         )
       );
-      await RespondAsync("Sent you a direct message with your gift recipient.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Secret Santa for [{guild.Name}]", "Sent you a direct message with your gift recipient."
+        ),
+        ephemeral: true
+      );
     }
   }
 
   [SlashCommand("set-budget", "Set the server's budget for gifts")]
   public async Task SetBudget(decimal budget)
   {
-    var group = GetGroup(Context.Guild.Id);
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
 
     if (budget < 0)
     {
-      await RespondAsync("You must set the budget to a positive decimal number");
+      await RespondAsync(
+        embed: ResponseHandler.SimpleGuildMessageEmbed(
+          guild, $"Secret Santa Budget for [{guild.Name}]", "You must set the budget to a positive decimal number"
+        ),
+        ephemeral: true
+      );
     }
     else
     {
       group.Budget = budget;
       await groups.SaveGroup(Context.Guild.Id, group.Budget, group.Participants(), group.List());
-      await RespondAsync($"The server's gift budget has been set to ${group.Budget:#.##}");
+      await RespondAsync(
+        embed: ResponseHandler.SimpleGuildMessageEmbed(
+          guild, $"Secret Santa Budget for [{guild.Name}]", $"The server's gift budget has been set to ${group.Budget:#.##}"
+        )
+      );
     }
   }
 
   [SlashCommand("get-budget", "Get the server's budget for gifts")]
   public async Task GetBudget()
   {
-    var group = GetGroup(Context.Guild.Id);
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
 
-    await RespondAsync($"The server's gift budget is ${group.Budget:#.##}");
+    await RespondAsync(
+      embed: ResponseHandler.SimpleGuildMessageEmbed(
+        guild, $"Secret Santa Budget for [{guild.Name}]", $"The server's gift budget is ${group.Budget:#.##}"
+      )
+    );
   }
 
   [SlashCommand("set-preferences", "Set your global gift preferences, shared between all servers (Links OK)")]
@@ -137,12 +195,18 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     [Summary("Third", "Your third top preference for gifts, input CLEAR to clear this preference")]
     string? thirdChoice = null)
   {
-    var userId = Context.User.Id;
+    var user = Context.User;
+    var userId = user.Id;
     var preferences = GetPreferences(userId);
     var newPreferences = new List<string>();
     if (firstChoice == null && secondChoice == null && thirdChoice == null)
     {
-      await RespondAsync("No preferences were entered.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleUserMessageEmbed(
+          user, $"Preferences List for {user.GlobalName ?? user.Username}", "No changes specified."
+        ),
+        ephemeral: true
+      );
     }
     else
     {
@@ -163,24 +227,31 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
       }
 
       await giftPreferences.SavePreference(userId, newPreferences.ToArray());
-      await RespondAsync(embed: ResponseHandler.PreferencesList(Context.User, newPreferences));
+      await RespondAsync(
+        embed: ResponseHandler.PreferencesListEmbed(user, newPreferences)
+      );
     }
   }
 
   [SlashCommand("list", "See the current participants in the secret santa list (by join order)")]
   public async Task List()
   {
-    var group = GetGroup(Context.Guild.Id);
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
 
     if (group.List().Count == 0)
     {
-      await RespondAsync("The current secret santa list is empty.");
+      await RespondAsync(
+        embed: ResponseHandler.SimpleGuildMessageEmbed(
+          guild, $"Participant List (By Join Order) for [{guild.Name}]","The current secret santa list is empty."
+        )
+      );
     }
     else
     {
       await RespondAsync(
-        embed: ResponseHandler.ParticipantList(
-          Context.Client, Context.Guild, "Participant List (By Join Order)", group.List()
+        embed: ResponseHandler.ParticipantListEmbed(
+          Context.Client, Context.Guild, $"Participant List (By Join Order) for [{guild.Name}]", group.List()
         )
       );
     }
@@ -190,18 +261,23 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
   [SlashCommand("peek", "Peek at the current secret santa list in the server (Debug Only)")]
   public async Task Peek()
   {
-    var group = GetGroup(Context.Guild.Id);
+    var guild = Context.Guild;
+    var group = GetGroup(guild.Id);
 
     if (group.Participants().Count == 0)
     {
-      await RespondAsync("The current secret santa list is empty.", ephemeral: true);
+      await RespondAsync(
+        embed: ResponseHandler.SimpleGuildMessageEmbed(
+          guild, $"Participant List (In Shuffled Order) for [{guild.Name}]", "The current secret santa list is empty."
+        ),
+        ephemeral: true
+      );
     }
     else
     {
-
       await RespondAsync(
-        embed: ResponseHandler.ParticipantList(
-          Context.Client, Context.Guild, "Participant List (In Shuffled Order)", group.Participants()
+        embed: ResponseHandler.ParticipantListEmbed(
+          Context.Client, guild, $"Participant List (In Shuffled Order) for [{{guild.Name}}]for [{guild.Name}]", group.Participants()
         ),
         ephemeral: true
       );
@@ -221,7 +297,7 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     {
       preferences = _giftPreferences[userId];
     }
-    catch (KeyNotFoundException ex)
+    catch (KeyNotFoundException)
     {
       _giftPreferences[userId] = ["", "", ""];
       preferences = _giftPreferences[userId];
@@ -244,7 +320,7 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     {
       group = _groups[guildId];
     }
-    catch (KeyNotFoundException ex)
+    catch (KeyNotFoundException)
     {
       _groups[guildId] = new SecretSantaGroup();
       group = _groups[guildId];
