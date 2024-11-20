@@ -186,6 +186,18 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
     );
   }
 
+  [SlashCommand("check-preferences", "Check your global gift preferences")]
+  public async Task CheckPreferences()
+  {
+    var user = Context.User;
+    var userId = user.Id;
+    var preferences = GetPreferences(userId);
+    await RespondAsync(
+      embed: ResponseHandler.PreferencesListEmbed(user, preferences),
+      ephemeral: true
+    );
+  }
+
   [SlashCommand("set-preferences", "Set your global gift preferences, shared between all servers (Links OK)")]
   public async Task SetPreferences(
     [Summary("First", "Your top preference for gifts, input CLEAR to clear this preference")]
@@ -216,7 +228,10 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
         switch (choice)
         {
           case null:
-            newPreferences.Add(preferences[i++]);
+            if (i < preferences.Length)
+            {
+              newPreferences.Add(preferences[i]);
+            }
             break;
           case "CLEAR":
             break;
@@ -224,11 +239,14 @@ public class InteractionModule(AppDbContext dbContext, Groups groups, Preference
             newPreferences.Add(choice);
             break;
         }
+        i++;
       }
 
-      await giftPreferences.SavePreference(userId, newPreferences.ToArray());
+      _giftPreferences[userId] = newPreferences.ToArray();
+      await giftPreferences.SavePreference(userId, _giftPreferences[userId]);
       await RespondAsync(
-        embed: ResponseHandler.PreferencesListEmbed(user, newPreferences)
+        embed: ResponseHandler.PreferencesListEmbed(user, newPreferences, true),
+        ephemeral: true
       );
     }
   }

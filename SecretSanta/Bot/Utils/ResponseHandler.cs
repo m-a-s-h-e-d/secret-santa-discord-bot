@@ -57,7 +57,7 @@ public static class ResponseHandler
     return embed.Build();
   }
 
-  public static Embed? PreferencesListEmbed(SocketUser recipient, IEnumerable<string> preferences)
+  public static Embed? PreferencesListEmbed(SocketUser recipient, IEnumerable<string> preferences, bool update = false)
   {
     var image = recipient.GetDisplayAvatarUrl(ImageFormat.Png, DefaultImageSize);
     var embed = new EmbedBuilder
@@ -68,8 +68,12 @@ public static class ResponseHandler
 
     embed.AddPreferences(preferences);
 
-    embed.WithDescription("Updated your preferences.")
-      .WithCurrentTimestamp();
+    if (update)
+    {
+      embed.WithDescription("Updated your preferences.");
+    }
+
+    embed.WithCurrentTimestamp();
 
     return embed.Build();
   }

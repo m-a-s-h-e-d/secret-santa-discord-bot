@@ -7,16 +7,20 @@
       "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\modules\\interactionmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\services\\interactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\services\\interactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\utils\\responsehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\utils\\responsehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\core\\models\\secretsantagroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\core\\models\\secretsantagroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D24EF555-3885-49D3-92CD-CFD5EE892E2B}|Schema\\Schema.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\schema\\preferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D24EF555-3885-49D3-92CD-CFD5EE892E2B}|Schema\\Schema.csproj|solutionrelative:schema\\preferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\utils\\responsehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\utils\\responsehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\services\\interactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\services\\interactionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D24EF555-3885-49D3-92CD-CFD5EE892E2B}|Schema\\Schema.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\schema\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\core\\models\\secretsantagroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|solutionrelative:bot\\core\\models\\secretsantagroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BAC8934E-C803-4A73-A316-F31D3B07433E}|Bot\\Bot.csproj|c:\\users\\mashed\\documents\\repositories\\secret-santa-discord-bot\\secretsanta\\bot\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
@@ -42,11 +42,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 229,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Preferences.cs",
               "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Schema\\Preferences.cs",
               "RelativeDocumentMoniker": "Schema\\Preferences.cs",
@@ -58,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "InteractionHandler.cs",
               "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Services\\InteractionHandler.cs",
               "RelativeDocumentMoniker": "Bot\\Services\\InteractionHandler.cs",
@@ -82,7 +82,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Schema\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Schema\\AppDbContext.cs",
@@ -94,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Program.cs",
               "RelativeDocumentMoniker": "Bot\\Program.cs",
@@ -106,7 +106,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "InteractionModule.cs",
+              "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Modules\\InteractionModule.cs",
+              "RelativeDocumentMoniker": "Bot\\Modules\\InteractionModule.cs",
+              "ToolTip": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Modules\\InteractionModule.cs",
+              "RelativeToolTip": "Bot\\Modules\\InteractionModule.cs",
+              "ViewState": "AgIAANcAAAAAAAAAAAAswPcAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T10:27:02.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ResponseHandler.cs",
+              "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Utils\\ResponseHandler.cs",
+              "RelativeDocumentMoniker": "Bot\\Utils\\ResponseHandler.cs",
+              "ToolTip": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Utils\\ResponseHandler.cs",
+              "RelativeToolTip": "Bot\\Utils\\ResponseHandler.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAqwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T08:25:21.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "SecretSantaGroup.cs",
               "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Core\\Models\\SecretSantaGroup.cs",
               "RelativeDocumentMoniker": "Bot\\Core\\Models\\SecretSantaGroup.cs",
@@ -115,38 +141,6 @@
               "ViewState": "AgIAAA8AAAAAAAAAAAAowBkAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-15T11:05:15.507Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "InteractionModule.cs",
-              "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Modules\\InteractionModule.cs",
-              "RelativeDocumentMoniker": "Bot\\Modules\\InteractionModule.cs",
-              "ToolTip": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Modules\\InteractionModule.cs",
-              "RelativeToolTip": "Bot\\Modules\\InteractionModule.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T10:27:02.74Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 171,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ResponseHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Utils\\ResponseHandler.cs",
-              "RelativeDocumentMoniker": "Bot\\Utils\\ResponseHandler.cs",
-              "ToolTip": "C:\\Users\\Mashed\\Documents\\Repositories\\secret-santa-discord-bot\\SecretSanta\\Bot\\Utils\\ResponseHandler.cs",
-              "RelativeToolTip": "Bot\\Utils\\ResponseHandler.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAqwAEAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T00:53:25.927Z",
-              "EditorCaption": ""
             }
           ]
         }
